@@ -25,7 +25,13 @@ add_definitions(-DHAVE_CONFIG_H)
 set(TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/")
 
 ## the following are directories where stuff will be installed to
-set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
+EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
+
+if( ${ARCHITECTURE} STREQUAL "aarch64" )
+  set(LIB_SUFFIX "64" CACHE STRING "Define suffix of directory name (32/64)")
+else()
+  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
+endif()
 set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Base directory for executables and libraries" FORCE)
 set(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "The subdirectory to the binaries prefix (default prefix/bin)" FORCE)
 set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
