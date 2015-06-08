@@ -29,6 +29,8 @@ EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTUR
 
 if( ${ARCHITECTURE} STREQUAL "aarch64" )
   set(LIB_SUFFIX "64" CACHE STRING "Define suffix of directory name (32/64)")
+elseif( ${ARCHITECTURE} STREQUAL "x86_64" )
+  set(LIB_SUFFIX "64" CACHE STRING "Define suffix of directory name (32/64)")
 else()
   set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
 endif()
